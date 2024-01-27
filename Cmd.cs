@@ -65,6 +65,7 @@ public static class Cmd
                 text: "Wrong format, be sure to write: /qrwifi \"<SSID>\" \"<PASSWORD>\"",
                 cancellationToken: ct
             );
+            return;
         }
 
         string ssid = match.Groups[1].Value;
