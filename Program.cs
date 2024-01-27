@@ -27,7 +27,8 @@ zhbBot.StartReceiving(
 var me = await zhbBot.GetMeAsync();
 
 Console.WriteLine($"Start listening for @{me.Username}");
-Console.ReadLine();
+
+await Task.Delay(Timeout.Infinite);
 
 // Send cancellation request to stop bot
 cts.Cancel();
