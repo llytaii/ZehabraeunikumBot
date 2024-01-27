@@ -3,7 +3,7 @@ using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-string token = System.IO.File.ReadAllText("token.txt");
+string token = System.IO.File.ReadAllText("token.txt").Trim();
 
 var bot = new TelegramBotClient(token);
 
