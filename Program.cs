@@ -58,6 +58,7 @@ async Task ZhbHandleUpdateAsync(ITelegramBotClient bot, Update update, Cancellat
 
         Task task = cmd switch
         {
+            "/github" => Cmd.Github(bot, update, ct),
             "/id" => Cmd.Id(bot, update, ct),
             "/wttr" => Cmd.Wttr(bot, update, ct),
             "/qr" => Cmd.QrEncode(bot, update, ct),

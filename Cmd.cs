@@ -42,6 +42,14 @@ public static class Cmd
     }
 
     // Text based commands
+    public static async Task Github(ITelegramBotClient bot, Update update, CancellationToken ct)
+    {
+        await bot.SendTextMessageAsync(
+            chatId: update.Message!.Chat.Id,
+            text: "https://www.github.com/llytaii/ZehabraeunikumBot",
+            cancellationToken: ct
+        );
+    }
     public static async Task Id(ITelegramBotClient bot, Update update, CancellationToken ct)
     {
         await bot.SendTextMessageAsync(
@@ -171,6 +179,8 @@ public static class Cmd
         help += "/wttr (location1) (location2) : tries to fetch wttr.in for weather png for each location. weilheim is the default location if none is given.\n";
         help += "/help : this help info\n";
         help += "/id : gets the telegram id of the active chat (private chat or group chat)";
+        help += "/github : source code\n";
+
         await bot.SendTextMessageAsync(
             chatId: update.Message!.Chat.Id,
             text: help,
