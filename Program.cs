@@ -1,30 +1,22 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Exceptions;
-using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-using Microsoft.Extensions.Configuration;
-using System.Security.Cryptography;
+string token = System.IO.File.ReadAllText("token.txt");
 
-string settingsPath = Path.Combine(Directory.GetCurrentDirectory(), "Bots.Settings.json");
-var botSettings = new ConfigurationBuilder()
-                        .AddJsonFile(settingsPath, false)
-                        .Build();
-
-var zhbBot = new TelegramBotClient(botSettings["ZhbToken"] ?? throw new NullReferenceException("ZhbToken was NULL"));
-//var opBot = new TelegramBotClient(botSettings["OpbToken"] ?? throw new NullReferenceException("OpbToken was NULL"));
+var bot = new TelegramBotClient(token);
 
 using CancellationTokenSource cts = new();
 
-zhbBot.StartReceiving(
-    updateHandler: ZhbHandleUpdateAsync,
+bot.StartReceiving(
+    updateHandler: HandleUpdateAsync,
     pollingErrorHandler: HandlePollingErrorAsync,
     receiverOptions: new() { AllowedUpdates = Array.Empty<UpdateType>() },
     cancellationToken: cts.Token
 );
 
-var me = await zhbBot.GetMeAsync();
+var me = await bot.GetMeAsync();
 
 Console.WriteLine($"Start listening for @{me.Username}");
 
@@ -33,7 +25,7 @@ await Task.Delay(Timeout.Infinite);
 // Send cancellation request to stop bot
 cts.Cancel();
 
-async Task ZhbHandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken ct)
+async Task HandleUpdateAsync(ITelegramBotClient bot, Update update, CancellationToken ct)
 {
     // Only process Message updates: https://core.telegram.org/bots/api#message
     if (update.Message is not { } message)
