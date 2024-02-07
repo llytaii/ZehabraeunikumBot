@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.ComponentModel;
 using ZXing;
 using SkiaSharp;
+using Weather.NET;
 
 public static class Cmd
 {
@@ -42,6 +43,14 @@ public static class Cmd
     }
 
     // Text based commands
+    public static async Task OpenWeather(ITelegramBotClient bot, Update update, CancellationToken ct)
+    {
+        await bot.SendTextMessageAsync(
+            chatId: update.Message!.Chat.Id,
+            text: "https://www.github.com/llytaii/ZehabraeunikumBot",
+            cancellationToken: ct
+        );
+    }
     public static async Task Github(ITelegramBotClient bot, Update update, CancellationToken ct)
     {
         await bot.SendTextMessageAsync(
